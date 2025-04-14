@@ -1,6 +1,6 @@
 [submodule "backend"]
 	path = backend
-	url = https://github.com/atqamz/kogase-backend.git
+	url = git@github.com:atqamz/kogase-backend.git
 [submodule "frontend"]
 	path = frontend
-	url = https://github.com/atqamz/kogase-frontend.git
+	url = git@github.com:atqamz/kogase-frontend.git
