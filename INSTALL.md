@@ -17,7 +17,7 @@ The easiest way to install Kogase is with our one-line installer. This script wi
 Open a terminal and run:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/atqamz/kogase/main/install-kogase.sh | bash
+curl -fsSL https://raw.githubusercontent.com/PA-5221600034/kogase/main/install-kogase.sh | bash
 ```
 
 ### For Windows (PowerShell)
@@ -25,7 +25,7 @@ curl -fsSL https://raw.githubusercontent.com/atqamz/kogase/main/install-kogase.s
 Open PowerShell and run:
 
 ```powershell
-irm https://raw.githubusercontent.com/atqamz/kogase/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/PA-5221600034/kogase/main/install.ps1 | iex
 ```
 
 ## Option 2: Manual Installation
@@ -34,7 +34,7 @@ irm https://raw.githubusercontent.com/atqamz/kogase/main/install.ps1 | iex
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/atqamz/kogase.git
+   git clone https://github.com/PA-5221600034/kogase.git
    cd kogase
    ```
 
@@ -48,7 +48,7 @@ irm https://raw.githubusercontent.com/atqamz/kogase/main/install.ps1 | iex
 
 1. Clone the repository:
    ```powershell
-   git clone https://github.com/atqamz/kogase.git
+   git clone https://github.com/PA-5221600034/kogase.git
    cd kogase
    ```
 

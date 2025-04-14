@@ -9,13 +9,13 @@ Kogase is an open-source, self-hosted game analytics and telemetry platform.
 **For Linux/macOS:**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/atqamz/kogase/master/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/PA-5221600034/kogase/master/install.sh | bash
 ```
 
 **For Windows (PowerShell):**
 
 ```powershell
-irm https://raw.githubusercontent.com/atqamz/kogase/master/install.ps1 | iex
+irm https://raw.githubusercontent.com/PA-5221600034/kogase/master/install.ps1 | iex
 ```
 
 For more installation options and troubleshooting, see [INSTALL.md](INSTALL.md).
@@ -39,7 +39,7 @@ For more installation options and troubleshooting, see [INSTALL.md](INSTALL.md).
 
 1. Clone the repository:
    ```
-   git clone https://github.com/atqamz/kogase.git
+   git clone https://github.com/PA-5221600034/kogase.git
    cd kogase
    ```
 
