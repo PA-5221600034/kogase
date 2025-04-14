@@ -1,6 +1,6 @@
-# Kogase - Game Analytics and Telemetry
+# Kogase - Komu's Game Service
 
-Kogase is an open-source, self-hosted game analytics and telemetry platform. It provides a simple, yet powerful way to track and analyze player behavior in your games.
+Kogase is an open-source, self-hosted game analytics and telemetry platform.
 
 ## Quick Installation
 
@@ -9,13 +9,13 @@ Kogase is an open-source, self-hosted game analytics and telemetry platform. It 
 **For Linux/macOS:**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/atqamz/kogase/main/install-kogase.sh | bash
+curl -fsSL https://raw.githubusercontent.com/atqamz/kogase/master/install.sh | bash
 ```
 
 **For Windows (PowerShell):**
 
 ```powershell
-irm https://raw.githubusercontent.com/atqamz/kogase/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/atqamz/kogase/master/install.ps1 | iex
 ```
 
 For more installation options and troubleshooting, see [INSTALL.md](INSTALL.md).
@@ -26,14 +26,7 @@ For more installation options and troubleshooting, see [INSTALL.md](INSTALL.md).
 - **Analytics Dashboard**: Visualize your game's performance metrics
 - **Multiple Projects**: Manage multiple games from a single dashboard
 - **Self-hosted**: Full control over your data
-- **Unity SDK**: Easy integration with Unity games (coming soon)
-
-## Tech Stack
-
-- **Backend**: Go with Gin framework
-- **Database**: PostgreSQL
-- **Frontend**: Coming soon (React or Vue.js)
-- **Unity SDK**: Coming soon
+- **Unity SDK**: Easy integration with Unity games
 
 ## Quick Start
 
@@ -46,7 +39,7 @@ For more installation options and troubleshooting, see [INSTALL.md](INSTALL.md).
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/kogase.git
+   git clone https://github.com/atqamz/kogase.git
    cd kogase
    ```
 
