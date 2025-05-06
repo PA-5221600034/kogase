@@ -1,0 +1,59 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Kogase Project: Tech Stack
+
+This document outlines the primary technologies used in the Kogase project.
+
+## Backend (Go)
+
+- **Language:** Go (Golang) 1.24+
+- **Web Framework:** Gin (`github.com/gin-gonic/gin`) - High-performance HTTP web framework.
+- **Database:** PostgreSQL
+- **ORM:** GORM (`gorm.io/gorm`) - Object Relational Mapper for Go.
+- **Authentication:** JWT (`github.com/golang-jwt/jwt/v5`) - JSON Web Tokens for securing API endpoints.
+- **API Documentation:** Swagger / Swaggo (`github.com/swaggo/swag`) - Generates interactive API documentation from code annotations.
+- **Environment Variables:** godotenv (`github.com/joho/godotenv`) - Loads environment variables from a `.env` file.
+- **Containerization:** Docker - For building and deploying the application.
+- **Build Base Image:** `golang:1.24-alpine`
+- **Runtime Base Image:** `alpine:latest`
+
+## Frontend (Next.js / React)
+
+- **Framework:** Next.js 15+ (`next`) - React framework for server-rendered applications.
+- **Language:** TypeScript (`typescript`)
+- **UI Library:** React 19 (`react`, `react-dom`)
+- **Styling:** Tailwind CSS (`tailwindcss`) - Utility-first CSS framework.
+- **UI Components:** shadcn/ui (using Radix UI primitives like `@radix-ui/react-*`) - Re-usable components.
+- **State Management:** Zustand (`zustand`) - Minimalistic state management library.
+- **HTTP Client:** Axios (`axios`) - Promise-based HTTP client for making requests to the backend API.
+- **Forms:** React Hook Form (`react-hook-form`) - Performant, flexible form validation.
+- **Schema Validation:** Zod (`zod`) - TypeScript-first schema declaration and validation library.
+- **Charting:** Recharts (`recharts`) - Composable charting library built with React components.
+- **Notifications:** Sonner (`sonner`) - Opinionated toast component.
+- **Utility Libraries:**
+    - `clsx`, `tailwind-merge`: For combining CSS classes.
+    - `lucide-react`: Icon library.
+    - `date-fns`: Date utility library.
+    - `next-themes`: Theme management for Next.js.
+- **Package Manager / Runtime:** Bun (`oven/bun`)
+- **Containerization:** Docker - For building and deploying the application.
+- **Build/Runtime Base Image:** `oven/bun:1-alpine`
+- **Development Server:** Next.js with Turbopack (`next dev --turbopack`)
+
+## Development Environment
+
+- **Devcontainer:** Visual Studio Code Dev Containers - Provides a consistent, containerized development environment.
+- **Features:**
+  - Pre-configured development environment with all necessary dependencies.
+  - Consistent tooling across team members regardless of host OS.
+  - Isolated environment that matches production configuration.
+  - Integration with VS Code extensions for Go and TypeScript/React development.
+
+## Infrastructure / Deployment (Inferred)
+
+- **Database Hosting:** (Not specified, assumed external PostgreSQL instance)
+- **Deployment Platform:** (Not specified, likely container orchestration like Kubernetes or a PaaS like Vercel/Fly.io/Render)
+

@@ -1,0 +1,83 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Kogase Project: Backend Guidelines
+
+This document outlines coding standards, project structure, and best practices for developing the Kogase Go backend.
+
+## 1. Language & Formatting
+
+- **Go Version:** Use Go 1.24 or later.
+- **Formatting:** Adhere strictly to `gofmt`. Code should be formatted using `gofmt` before committing.
+- **Linting:** Use a standard linter (e.g., `golangci-lint`) with a consistent configuration (a default configuration is recommended if none exists). Address linter warnings.
+- **Imports:** Use `goimports` or the editor's equivalent to automatically manage imports and group them (standard library, third-party, project-local).
+
+## 2. Project Structure
+
+Follow the established project structure:
+
+```
+.
+├── config/         # Configuration loading and management (e.g., from .env, flags)
+├── controllers/    # Gin handlers, request/response logic, DTO validation
+├── dtos/           # Data Transfer Objects for API requests/responses
+├── middleware/     # Gin middleware (e.g., auth, logging, CORS)
+├── models/         # GORM database models and potentially database interaction logic (repositories)
+├── server/         # Gin engine setup, routing, server initialization
+├── docs/           # Generated Swagger documentation
+├── utils/          # Shared utility functions (avoid making this a dumping ground)
+├── tests/          # Unit and integration tests (mirroring package structure)
+├── go.mod          # Go module definition
+├── go.sum          # Dependency checksums
+└── main.go         # Application entry point, initializes server
+```
+
+- Keep packages focused and cohesive.
+- Avoid circular dependencies between packages.
+
+## 3. API Design
+
+- **RESTful Principles:** Design APIs following RESTful conventions where appropriate.
+- **Versioning:** Use API versioning in the path (e.g., `/api/v1/...`).
+- **DTOs:** Use Data Transfer Objects (`dtos/` package) for request binding/validation and structuring responses. Avoid exposing GORM models directly in API responses.
+- **Validation:** Perform request validation within controllers, potentially using helper functions or libraries like `validator/v10`.
+- **Error Handling:** Implement consistent error handling. Return appropriate HTTP status codes and structured error responses (e.g., JSON with an error message).
+- **Authentication:** Use the established JWT middleware for user-facing endpoints and API Key checks for client-facing endpoints.
+
+## 4. Database Interaction
+
+- **ORM:** Use GORM for database interactions.
+- **Models:** Define database models in the `models/` package.
+- **Repositories (Optional but Recommended):** Consider implementing a repository pattern to abstract database logic away from controllers. Repositories would live within or alongside the `models/` package.
+- **Migrations:** Use a database migration tool (e.g., `golang-migrate`, GORM's auto-migrate for development) to manage schema changes.
+- **Connection Management:** Ensure proper database connection pooling and handling.
+
+## 5. Configuration
+
+- Use the `config/` package to load configuration from environment variables (facilitated by `godotenv` for local development).
+- Avoid hardcoding configuration values.
+
+## 6. Testing
+
+- Write unit tests for utility functions, business logic, and potentially controllers (using mocking).
+- Write integration tests for API endpoints, interacting with a test database if possible.
+- Place tests in the `tests/` directory, potentially mirroring the structure of the main packages.
+- Aim for reasonable test coverage.
+
+## 7. Documentation
+
+- **Code Comments:** Write clear comments for non-obvious code logic, especially for exported functions and types.
+- **API Documentation:** Use Swaggo annotations (`// @Summary`, `// @Param`, etc.) in controller methods to keep the Swagger documentation up-to-date. Regenerate docs using `swag init -g main.go` after making changes.
+
+## 8. Dependencies
+
+- Manage dependencies using Go Modules (`go.mod`, `go.sum`).
+- Run `go mod tidy` to clean up dependencies before committing.
+
+## 9. Security
+
+- Be mindful of security best practices (e.g., input validation, output encoding, secure handling of credentials, avoiding SQL injection).
+- Use `bcrypt` or a similar strong hashing algorithm for storing passwords.
+

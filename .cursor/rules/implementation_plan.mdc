@@ -1,0 +1,62 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Kogase Project: Implementation Plan / Next Steps
+
+This document outlines a high-level plan, considering the project's current state. It focuses on potential areas for enhancement, refinement, and future development.
+
+## Phase 1: Foundation & Core Features (Largely Complete)
+
+- **Backend API:**
+    - [x] Setup Go project structure (Gin, GORM).
+    - [x] Implement core RESTful endpoints for authentication (JWT/API Key), project CRUD, telemetry ingestion.
+    - [x] Database schema design and implementation (PostgreSQL).
+    - [x] Basic API documentation (Swagger).
+    - [x] Containerization (Dockerfile).
+- **Frontend Dashboard:**
+    - [x] Setup Next.js project (TypeScript, App Router, Bun).
+    - [x] Implement UI for user login/registration.
+    - [x] Implement UI for project listing and creation.
+    - [x] Basic data display for telemetry (potentially tables/simple charts).
+    - [x] Styling with Tailwind CSS and shadcn/ui.
+    - [x] State management (Zustand).
+    - [x] Containerization (Dockerfile).
+- **Development Environment:**
+    - [ ] **Task 1.1: Devcontainer Setup:** Create VS Code devcontainer configuration for consistent development environments across the team. Include configuration for both frontend and backend development, with all necessary dependencies, extensions, and tooling pre-configured.
+
+## Phase 2: Refinement & Enhancement (Potential Next Steps)
+
+- **Backend:**
+    - **Task 2.1: Advanced Analytics Endpoints:** Develop more sophisticated API endpoints for complex data aggregation and analysis (e.g., funnel analysis, retention cohorts, A/B testing results).
+    - **Task 2.2: Database Optimization:** Review and optimize database queries and indexing, especially for large telemetry datasets.
+    - **Task 2.3: Introduce Caching:** Implement caching strategies (e.g., Redis) for frequently accessed data (project details, aggregated analytics) to improve API response times.
+    - **Task 2.4: Background Job Processing:** For potentially long-running tasks (e.g., complex report generation, data archiving), introduce a background job queue (e.g., using Redis or RabbitMQ).
+    - **Task 2.5: Enhance Testing:** Increase test coverage (unit and integration tests), particularly around business logic and edge cases.
+    - **Task 2.6: Logging & Monitoring:** Implement structured logging and integrate with monitoring tools (e.g., Prometheus, Grafana) for better observability.
+    - **Task 2.7: API Key Management:** Improve API key management features (e.g., multiple keys per project, key rotation, permissions per key).
+- **Frontend:**
+    - **Task 2.8: Advanced Data Visualizations:** Enhance the dashboard with more interactive and insightful charts using Recharts or potentially other libraries (e.g., Nivo, Visx).
+    - **Task 2.9: Real-time Updates:** Implement real-time data updates on the dashboard using WebSockets or Server-Sent Events (SSE) connected to the backend.
+    - **Task 2.10: Improve User Experience (UX):** Refine UI flows, improve loading states, add more user feedback (e.g., better use of Sonner toasts, loading skeletons).
+    - **Task 2.11: Frontend Testing:** Implement frontend testing (Jest/RTL for components/hooks, Playwright/Cypress for E2E).
+    - **Task 2.12: Role-Based UI:** Adapt the UI based on user roles/permissions fetched from the backend.
+    - **Task 2.13: Accessibility (a11y):** Review and improve frontend accessibility according to WCAG standards.
+- **Development Environment:**
+    - **Task 2.14: Devcontainer Refinement:** Enhance devcontainer configuration with additional productivity tools, debugging configurations, and automation scripts to further improve developer experience.
+
+## Phase 3: SDKs & Integrations (Future Considerations)
+
+- **Task 3.1: Official SDKs:** Develop official SDKs for popular game engines (e.g., Unity, Unreal Engine) to simplify integration for developers.
+- **Task 3.2: Webhook Support:** Implement outgoing webhooks from the backend to notify external systems about specific events (e.g., new project created, specific telemetry threshold reached).
+- **Task 3.3: Third-Party Integrations:** Explore integrations with other developer tools or platforms.
+
+## Cross-Cutting Concerns
+
+- **Documentation:** Continuously update all documentation (code comments, API docs, `.mdc` files) as the project evolves.
+- **CI/CD:** Set up Continuous Integration and Continuous Deployment pipelines to automate testing, building, and deployment.
+- **Security Audits:** Periodically perform security reviews and audits.
+
+*This plan is indicative and priorities may shift based on user feedback and business requirements.*
+

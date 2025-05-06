@@ -1,0 +1,111 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Kogase Project: Frontend Guidelines
+
+This document outlines coding standards, project structure, and best practices for developing the Kogase Next.js frontend.
+
+## 1. Language & Framework
+
+- **Framework:** Next.js 15+ (App Router)
+- **Language:** TypeScript 5+. Enable strict mode in `tsconfig.json` and address type errors.
+- **UI Library:** React 19+
+- **Package Manager:** Bun is used (`bun install`, `bun run dev`, etc.). Ensure `bun.lock` is committed.
+
+## 2. Formatting & Linting
+
+- **Formatting:** Use a consistent code formatter (e.g., Prettier) configured for the project. Format code before committing.
+- **Linting:** Use ESLint, configured via `eslint.config.mjs`. Adhere to the rules defined (likely based on `eslint-config-next`). Address linting errors and warnings.
+
+## 3. Project Structure (Assumed)
+
+Organize the `src/` directory logically. A common structure includes:
+
+```
+src/
+├── app/                # Next.js App Router: pages, layouts, loading states, error boundaries
+│   ├── (auth)/         # Route group for authentication pages (e.g., login, register)
+│   ├── (dashboard)/    # Route group for authenticated dashboard sections
+│   │   ├── layout.tsx
+│   │   ├── projects/
+│   │   └── page.tsx    # Main dashboard overview
+│   ├── api/            # API routes (if any frontend-specific)
+│   └── layout.tsx      # Root layout
+│   └── page.tsx        # Landing page / Root page
+├── components/         # Reusable UI components
+│   ├── ui/             # shadcn/ui components (or similar primitive components)
+│   └── features/       # Components specific to certain features (e.g., project-list, chart-display)
+├── contexts/           # React Context providers (if needed beyond Zustand)
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions, constants, type definitions, API client setup
+│   ├── api.ts          # Axios instance setup, API call functions
+│   ├── utils.ts        # General utility functions (like shadcn's `cn`)
+│   └── validators.ts   # Zod schemas for form validation
+├── stores/             # Zustand state management stores
+└── styles/             # Global styles, Tailwind base layers
+    └── globals.css
+```
+
+- Use path aliases (`@/*`) defined in `tsconfig.json` for cleaner imports.
+
+## 4. State Management
+
+- **Primary:** Use Zustand (`stores/`) for global or cross-feature state.
+- **Local:** Use React's built-in state management (`useState`, `useReducer`) for component-local state.
+- **Server State:** Use libraries like TanStack Query (React Query) if complex server state caching, invalidation, and synchronization are needed (not currently listed in dependencies, but consider if needed).
+
+## 5. Styling
+
+- **Framework:** Use Tailwind CSS for styling.
+- **Utility Classes:** Primarily use Tailwind utility classes directly in JSX.
+- **Component Abstraction:** Encapsulate complex or repeated styles within components (`components/`).
+- **Class Merging:** Use `clsx` and `tailwind-merge` (often via a `cn` utility function from `lib/utils.ts`) to conditionally apply and merge classes.
+- **CSS Modules:** Can be used for component-scoped styles if needed, but prefer Tailwind utilities.
+- **Global Styles:** Define base styles and Tailwind layer directives in `src/styles/globals.css`.
+
+## 6. Components
+
+- **Structure:** Build UI using functional components and React Hooks.
+- **Naming:** Use PascalCase for component file names and function names (e.g., `UserProfile.tsx`).
+- **Props:** Define component props using TypeScript interfaces or types.
+- **Reusability:** Create generic, reusable components in `src/components/ui/` and feature-specific ones in `src/components/features/`.
+- **shadcn/ui:** Leverage components from `shadcn/ui` (or the installed Radix primitives) for common UI elements.
+
+## 7. API Interaction
+
+- **Client:** Use the configured Axios instance (`lib/api.ts`) for making requests to the backend.
+- **Environment Variables:** Access the backend URL via `process.env.NEXT_PUBLIC_API_URL` (defined in `next.config.ts`). Remember that `NEXT_PUBLIC_` variables are exposed to the browser.
+- **Type Safety:** Define types/interfaces for API request payloads and responses.
+- **Error Handling:** Implement robust error handling for API calls (e.g., using try/catch, displaying user feedback via Sonner toasts).
+
+## 8. Forms
+
+- **Library:** Use React Hook Form for managing form state and validation.
+- **Validation:** Use Zod schemas (`lib/validators.ts`) integrated with React Hook Form via `@hookform/resolvers`.
+- **UI:** Integrate form state with `shadcn/ui` form components.
+
+## 9. Routing
+
+- Utilize the Next.js App Router for defining routes, layouts, and loading/error states within the `src/app/` directory.
+- Use `<Link>` component from `next/link` for client-side navigation.
+- Use route groups `(...)` to organize sections of the app without affecting the URL path.
+
+## 10. Testing
+
+- (No testing framework currently configured in `package.json`) Consider adding Jest/React Testing Library for unit/integration tests and Playwright/Cypress for end-to-end tests.
+- Test critical components, hooks, and utility functions.
+
+## 11. Environment Variables
+
+- Use `.env.local` for local development secrets and overrides.
+- Prefix browser-exposed variables with `NEXT_PUBLIC_`.
+- Access variables via `process.env`.
+
+## 12. Security
+
+- Be mindful of Cross-Site Scripting (XSS) - ensure data rendered is properly sanitized if it comes from user input.
+- Handle authentication tokens securely (e.g., storing in httpOnly cookies if using server components/actions, or secure browser storage for client-side handling, though less ideal).
+- Implement necessary checks for authenticated routes/data fetching.
+

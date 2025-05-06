@@ -1,0 +1,77 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Kogase Project: General Rules & Workflow
+
+This document outlines general rules, workflow guidelines, and references other key documentation for the Kogase project.
+
+## 1. Core Principles
+
+- **Consistency:** Strive for consistency in code style, architecture, and documentation across both backend and frontend.
+- **Clarity:** Write clear, readable, and maintainable code. Use meaningful names for variables, functions, and components.
+- **Collaboration:** Communicate effectively, review code thoroughly, and maintain a respectful development environment.
+- **Documentation:** Keep documentation up-to-date. This includes inline code comments, API documentation (Swagger), and the markdown (`.mdc`) documents in the project root.
+
+## 2. Version Control (Git)
+
+- **Branching Strategy:** Use a standard branching model (e.g., Gitflow or GitHub Flow).
+    - `main` branch represents production-ready code.
+    - `develop` (or similar) branch represents the latest integrated development state.
+    - Feature branches (`feature/...`) should be created from `develop` for new work.
+    - Bugfix branches (`bugfix/...`) should be created from the relevant branch (e.g., `develop` or `main` for hotfixes).
+- **Commits:**
+    - Write clear and concise commit messages following conventional commit standards (e.g., `feat: add user login endpoint`, `fix: correct validation logic`).
+    - Commit small, logical units of work.
+    - Ensure code builds and passes linters/formatters before committing.
+- **Pull Requests (PRs):**
+    - Create PRs from feature/bugfix branches targeting `develop` (or `main` for hotfixes).
+    - Include a clear description of the changes in the PR.
+    - Link PRs to relevant issues if using an issue tracker.
+    - Require at least one code review approval before merging.
+    - Ensure CI checks (if configured) pass before merging.
+    - Delete branches after merging.
+
+## 3. Code Reviews
+
+- **Purpose:** Improve code quality, share knowledge, ensure consistency, and catch potential bugs.
+- **Reviewer Responsibilities:** Provide constructive feedback, check for adherence to guidelines, test logic where applicable.
+- **Author Responsibilities:** Respond to feedback, make necessary changes, ensure the PR is ready for review.
+
+## 4. Development Workflow
+
+1.  Pull the latest changes from the `develop` branch.
+2.  Create a new feature or bugfix branch from `develop`.
+3.  Implement the required changes, adhering to the relevant guidelines:
+    - See `backend_guidelines_document.mdc` for backend development.
+    - See `frontend_guidelines_document.mdc` for frontend development.
+4.  Write/update tests as necessary.
+5.  Ensure code is formatted (`gofmt` for backend, Prettier/formatter for frontend) and passes linters (`golangci-lint`, ESLint).
+6.  Commit changes with clear messages.
+7.  Push the branch to the remote repository.
+8.  Create a Pull Request targeting `develop`.
+9.  Address review comments and ensure CI passes.
+10. Merge the PR once approved.
+
+## 5. Key Documentation Reference
+
+- **Project Requirements:** `project_requirements_document.mdc`
+- **Technology Stack:** `tech_stack_document.mdc`
+- **Application Flow:** `app_flow_document.mdc`
+- **Backend Guidelines:** `backend_guidelines_document.mdc`
+- **Frontend Guidelines:** `frontend_guidelines_document.mdc`
+- **Implementation Plan / Next Steps:** `implementation_plan.mdc`
+- **Backend API Documentation:** Generated via Swagger, accessible at `/swagger/index.html` when the backend is running.
+
+## 6. Environment Setup
+
+- Refer to `backend/README.md` for backend setup instructions.
+- Refer to `frontend/README.md` for frontend setup instructions.
+- Use `.env` files (or system environment variables) for configuration, following the examples provided. Do not commit `.env` files containing secrets.
+- For consistent development environments, use the provided VS Code devcontainer configuration. This ensures all team members have the same development setup regardless of their local system.
+
+## 7. Issue Tracking
+
+- (If applicable) Use a designated issue tracker (e.g., GitHub Issues, Jira) to report bugs, request features, and track tasks.
+

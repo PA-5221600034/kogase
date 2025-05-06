@@ -1,0 +1,90 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Kogase Project: Application Flow
+
+This document describes the key user flows and data interactions within the Kogase application, covering both the frontend dashboard and the backend API.
+
+## 1. User Authentication Flow (Dashboard)
+
+1.  **User Action:** User navigates to the frontend login page (`/login`).
+2.  **Frontend:** Displays the login form (email/password).
+3.  **User Action:** User enters credentials and submits the form.
+4.  **Frontend:**
+    - Validates input using React Hook Form & Zod.
+    - Sends a POST request to the backend `/auth/login` endpoint with credentials (via Axios).
+5.  **Backend:**
+    - Receives login request (`controllers/auth_controller.go` likely).
+    - Validates credentials against user data in the database (`models/user.go`).
+    - If valid, generates a JWT token containing user ID and potentially roles/permissions.
+    - Returns the JWT token in the response.
+6.  **Frontend:**
+    - Receives the JWT token.
+    - Stores the token securely (e.g., Zustand store, potentially localStorage or sessionStorage - check implementation).
+    - Redirects the user to the main dashboard page (`/`).
+    - Attaches the JWT token (`Authorization: Bearer <token>`) to subsequent requests to protected backend endpoints using an Axios interceptor or similar mechanism.
+
+## 2. Data Ingestion Flow (Game Client/SDK)
+
+1.  **Game Client Action:** An event occurs in the game (e.g., player action, level start, session end).
+2.  **Game Client/SDK:**
+    - Constructs a telemetry data payload (e.g., JSON).
+    - Retrieves the project-specific API Key.
+    - Sends a POST request to the appropriate backend data ingestion endpoint (e.g., `/telemetry/event`, `/telemetry/session`) with the payload.
+    - Includes the API Key in the `X-API-Key` header.
+3.  **Backend:**
+    - Receives the request.
+    - **Authentication Middleware:** Verifies the `X-API-Key` header, checks if the key is valid and belongs to an active project.
+    - **Controller:** (`controllers/telemetry_controller.go` likely)
+        - Parses and validates the incoming data payload.
+        - Potentially enriches the data (e.g., adding timestamps, server-side info).
+        - Stores the validated data in the PostgreSQL database (associating it with the correct project based on the API Key).
+    - Returns a success (e.g., 200 OK or 202 Accepted) or error response.
+4.  **Game Client/SDK:** Handles the response (e.g., logs success, implements retry logic on failure).
+
+## 3. Creating a New Project Flow (Dashboard)
+
+1.  **User Action:** User clicks a "Create Project" button.
+2.  **Frontend:** Displays a form for the new project details (e.g., name, description).
+3.  **User Action:** User fills in the details and submits.
+4.  **Frontend:**
+    - Validates input.
+    - Sends a POST request to the backend `/projects` endpoint with the project details.
+    - Includes the user's JWT token.
+5.  **Backend:**
+    - Receives request.
+    - **Auth Middleware:** Verifies JWT.
+    - **Controller:** (`controllers/project_controller.go` likely)
+        - Validates payload.
+        - Creates a new project record in the database, associating it with the current user.
+        - Generates an initial API Key for the project.
+        - Stores the API Key securely.
+        - Returns the details of the newly created project (including potentially the API Key - *needs careful consideration*).
+6.  **Frontend:**
+    - Receives the response.
+    - Updates the UI (e.g., adds the new project to the list, potentially navigates to the new project's page).
+    - Displays the newly generated API Key to the user (ensure clear instructions about saving it securely).
+
+## 4. Viewing Project Data Flow (Dashboard)
+
+1.  **User Action:** User navigates to a specific project's dashboard page in the frontend.
+2.  **Frontend:**
+    - The dashboard component (e.g., `app/(dashboard)/projects/[projectId]/page.tsx`) mounts.
+    - Retrieves the required data (e.g., time range, filters) from its state or URL parameters.
+    - Sends GET requests to relevant backend endpoints (e.g., `/projects/{id}/events`, `/projects/{id}/sessions`, `/projects/{id}/analytics`) via Axios.
+    - Includes the user's JWT token in the `Authorization` header.
+3.  **Backend:**
+    - Receives the request.
+    - **Authentication Middleware:** Verifies the JWT token, ensures the user has access to the requested project.
+    - **Controller:** (`controllers/project_controller.go` or `controllers/analytics_controller.go` likely)
+        - Parses request parameters (filters, time range).
+        - Queries the PostgreSQL database (via GORM/repositories) to retrieve the requested data for the specific project.
+        - Aggregates or transforms data as needed for analytics endpoints.
+        - Returns the data in the response (e.g., JSON array of events, aggregated stats).
+4.  **Frontend:**
+    - Receives the data.
+    - Updates its state (e.g., Zustand store, local component state).
+    - Renders the data using components (e.g., Recharts for charts, TanStack Table or custom tables).
+
