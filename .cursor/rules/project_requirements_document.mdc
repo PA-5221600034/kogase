@@ -1,0 +1,82 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Kogase Project: Requirements
+
+This document outlines the functional and non-functional requirements for the Kogase project, inferred from the existing codebase and documentation.
+
+## 1. Overview
+
+Kogase is a system designed for game developers to collect, manage, and analyze telemetry data from their games. It consists of a backend API for data ingestion and management, and a frontend dashboard for visualization and administration.
+
+## 2. Functional Requirements
+
+### 2.1 Backend API
+
+- **FR1: Authentication & Authorization:**
+    - **FR1.1:** Provide JWT-based authentication for dashboard users (login/registration).
+    - **FR1.2:** Provide API Key-based authentication for game clients/SDKs.
+    - **FR1.3:** Implement role-based access control (e.g., admin, project member).
+- **FR2: Project Management:**
+    - **FR2.1:** Allow authenticated users to create, read, update, and delete projects.
+    - **FR2.2:** Each project should have a unique identifier and associated API keys.
+- **FR3: Telemetry Data Collection:**
+    - **FR3.1:** Provide API endpoints for game clients to send telemetry data (e.g., player events, sessions, custom metrics).
+    - **FR3.2:** Validate incoming telemetry data against project-specific schemas (if applicable).
+    - **FR3.3:** Store telemetry data efficiently in the PostgreSQL database.
+- **FR4: Session Tracking:**
+    - **FR4.1:** Provide endpoints to start, update, and end player sessions.
+    - **FR4.2:** Associate telemetry events with specific player sessions.
+- **FR5: Data Retrieval & Analytics:**
+    - **FR5.1:** Provide API endpoints for the frontend dashboard to query aggregated and raw telemetry data.
+    - **FR5.2:** Support filtering and grouping of data (e.g., by time range, event type, project).
+- **FR6: API Documentation:**
+    - **FR6.1:** Automatically generate and serve interactive API documentation (Swagger UI).
+
+### 2.2 Frontend Dashboard
+
+- **FF1: User Authentication:**
+    - **FF1.1:** Provide login and registration forms for dashboard users.
+    - **FF1.2:** Manage user sessions and JWT tokens.
+- **FF2: Project Management Interface:**
+    - **FF2.1:** Display a list of projects accessible to the logged-in user.
+    - **FF2.2:** Allow users to create new projects.
+    - **FF2.3:** Provide an interface to view/manage project details, including generating/revoking API keys.
+- **FF3: Data Visualization:**
+    - **FF3.1:** Display dashboards with visualizations (charts, tables) of telemetry data.
+    - **FF3.2:** Allow users to filter and explore data based on various parameters (time range, project, etc.).
+    - **FF3.3:** Show real-time (or near real-time) data updates.
+- **FF4: Settings / Administration:**
+    - **FF4.1:** Allow users to manage their profiles.
+    - **FF4.2:** (If applicable) Provide admin-level interfaces for user management.
+
+## 3. Non-Functional Requirements
+
+- **NFR1: Performance:**
+    - **NFR1.1:** Backend API endpoints for data ingestion should handle high volumes of requests with low latency.
+    - **NFR1.2:** Frontend dashboard queries should load data reasonably fast.
+- **NFR2: Scalability:**
+    - **NFR2.1:** The backend should be scalable horizontally to handle increasing load.
+    - **NFR2.2:** The database schema should be designed for efficient querying of large datasets.
+- **NFR3: Security:**
+    - **NFR3.1:** Secure authentication mechanisms (JWT, API Keys).
+    - **NFR3.2:** Protection against common web vulnerabilities (e.g., XSS, CSRF, SQL Injection).
+    - **NFR3.3:** Proper input validation on both frontend and backend.
+- **NFR4: Usability:**
+    - **NFR4.1:** The frontend dashboard should have an intuitive and user-friendly interface.
+    - **NFR4.2:** API documentation should be clear and easy to understand.
+- **NFR5: Maintainability:**
+    - **NFR5.1:** Code should follow consistent coding standards (Go for backend, TypeScript/React for frontend).
+    - **NFR5.2:** The codebase should be well-structured and modular.
+    - **NFR5.3:** Include unit and integration tests (Backend `tests/` directory exists).
+- **NFR6: Deployability:**
+    - **NFR6.1:** Both backend and frontend should be easily deployable using Docker containers.
+
+## 4. Assumptions
+
+- A PostgreSQL database instance is available and configured.
+- Deployment infrastructure (e.g., server, container orchestrator) is available.
+- Game developers will integrate the provided API/SDK into their games.
+
