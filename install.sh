@@ -35,7 +35,7 @@ if ! command -v docker-compose &> /dev/null; then
 fi
 
 # Set the repository URL
-REPO_URL="https://github.com/atqamz/kogase.git"
+REPO_URL="https://github.com/PA-5221600034/kogase.git"
 
 # Ask for installation directory or use default
 echo "Where would you like to install Kogase? (default: ./kogase)"
