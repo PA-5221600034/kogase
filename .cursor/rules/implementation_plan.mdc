@@ -23,8 +23,6 @@ This document outlines a high-level plan, considering the project's current stat
     - [x] Styling with Tailwind CSS and shadcn/ui.
     - [x] State management (Zustand).
     - [x] Containerization (Dockerfile).
-- **Development Environment:**
-    - [ ] **Task 1.1: Devcontainer Setup:** Create VS Code devcontainer configuration for consistent development environments across the team. Include configuration for both frontend and backend development, with all necessary dependencies, extensions, and tooling pre-configured.
 
 ## Phase 2: Refinement & Enhancement (Potential Next Steps)
 
