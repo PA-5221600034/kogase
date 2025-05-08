@@ -59,6 +59,7 @@ WORKDIR /workspace
 
 # Create initialization script
 RUN echo '#!/bin/bash \n\
+    git submodule update --init --recursive \n\
     # Set correct ownership of backend and frontend directories \n\
     echo "Setting correct ownership for workspace directories..." \n\
     sudo chown -R vscode:vscode /workspace/backend \n\
