@@ -1,33 +1,7 @@
 # Exit on error
 $ErrorActionPreference = "Stop"
 
-Write-Host "Checking Kogase container health..." -ForegroundColor Cyan
-
-# Check if Docker is running
-try {
-    docker info | Out-Null
-}
-catch {
-    Write-Host "Docker is not running or you don't have permission to use it." -ForegroundColor Red
-    exit 1
-}
-
-# Check if Docker Compose is installed
-try {
-    docker-compose --version | Out-Null
-}
-catch {
-    Write-Host "Docker Compose is not installed or not in the PATH." -ForegroundColor Red
-    exit 1
-}
-
-# Check container status
-Write-Host "===== Container Status =====" -ForegroundColor Green
-$containers = docker-compose ps -q
-if (-not $containers) {
-    Write-Host "No containers are running. Please start the services with 'docker-compose up -d'." -ForegroundColor Red
-    exit 1
-}
+Write-Host "Checking Kogase health..." -ForegroundColor Cyan
 
 # Check each service
 Write-Host "===== Service Health Checks =====" -ForegroundColor Green
@@ -74,15 +48,6 @@ if ($frontendStatus -match "Up") {
 }
 else {
     Write-Host "❌ Frontend service: Not running" -ForegroundColor Red
-}
-
-# Database check
-$dbStatus = docker-compose ps postgres
-if ($dbStatus -match "Up") {
-    Write-Host "✅ Database service: Running" -ForegroundColor Green
-}
-else {
-    Write-Host "❌ Database service: Not running" -ForegroundColor Red
 }
 
 Write-Host "===== Resource Usage =====" -ForegroundColor Green

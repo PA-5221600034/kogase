@@ -55,9 +55,9 @@ The following environment variables are set up in the container:
 
 The following ports are forwarded from the container to your local machine:
 
-- 13000: Frontend (Next.js) - mapped to container port 3000
-- 18080: Backend (Go/Gin) - mapped to container port 8080
-- 15432: PostgreSQL - mapped to container port 5432
+- 3000: Frontend (Next.js) - mapped to container port 3000
+- 8080: Backend (Go/Gin) - mapped to container port 8080
+- 5432: PostgreSQL - mapped to container port 5432
 
 All services are bound to all interfaces (0.0.0.0) for remote access.
 
