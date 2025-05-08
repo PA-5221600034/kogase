@@ -74,7 +74,7 @@ cd backend
 air -c .air.toml
 ```
 
-The backend API will be available at http://localhost:18080.
+The backend API will be available at http://localhost:8080.
 
 ### Frontend (Next.js)
 
@@ -85,7 +85,7 @@ cd frontend
 bun run dev
 ```
 
-The frontend will be available at http://localhost:13000.
+The frontend will be available at http://localhost:3000.
 
 ## Customization
 
