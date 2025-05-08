@@ -3,27 +3,7 @@
 # Exit on error
 set -e
 
-echo "Checking Kogase container health..."
-
-# Check if Docker is running
-if ! docker info > /dev/null 2>&1; then
-    echo "Docker is not running or you don't have permission to use it."
-    exit 1
-fi
-
-# Check if Docker Compose is installed
-if ! command -v docker-compose > /dev/null 2>&1; then
-    echo "Docker Compose is not installed or not in the PATH."
-    exit 1
-fi
-
-# Check container status
-echo "===== Container Status ====="
-containers=$(docker-compose ps -q)
-if [ -z "$containers" ]; then
-    echo "No containers are running. Please start the services with 'docker-compose up -d'."
-    exit 1
-fi
+echo "Checking Kogase health..."
 
 # Check each service
 echo "===== Service Health Checks ====="
@@ -54,14 +34,6 @@ if [[ $frontend_status == *"Up"* ]]; then
     fi
 else
     echo "❌ Frontend service: Not running"
-fi
-
-# Database check
-db_status=$(docker-compose ps postgres | grep "Up" || echo "Down")
-if [[ $db_status == *"Up"* ]]; then
-    echo "✅ Database service: Running"
-else
-    echo "❌ Database service: Not running"
 fi
 
 echo "===== Resource Usage ====="

@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    command: /bin/sh -c "/home/vscode/init.sh && sleep infinity"
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=kogase
+      - DB_PORT=5432
+      - BACKEND_PORT=8080
+      - FRONTEND_PORT=3000
+    depends_on:
+      - db
+    networks:
+      - kogase-network
+
+  db:
+    image: postgres:17
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=kogase
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - kogase-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-data:
+
+networks:
+  kogase-network: 
