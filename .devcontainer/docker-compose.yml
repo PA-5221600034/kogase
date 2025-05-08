@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ..:/workspace:cached
-    command: /bin/sh -c "/home/vscode/init-deps.sh && sleep infinity"
+    command: /bin/sh -c "/home/vscode/init.sh && sleep infinity"
     environment:
       - DB_HOST=db
       - DB_USER=postgres

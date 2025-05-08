@@ -59,15 +59,25 @@ WORKDIR /workspace
 
 # Create initialization script
 RUN echo '#!/bin/bash \n\
-if [ -f "/workspace/backend/go.mod" ]; then \n\
-  echo "Installing backend dependencies..." \n\
-  cd /workspace/backend && go mod download \n\
-fi \n\
-\n\
-if [ -f "/workspace/frontend/package.json" ]; then \n\
-  echo "Installing frontend dependencies..." \n\
-  cd /workspace/frontend && bun install \n\
-fi \n\
-' > /home/vscode/init-deps.sh && chmod +x /home/vscode/init-deps.sh
+    # Set correct ownership of backend and frontend directories \n\
+    echo "Setting correct ownership for workspace directories..." \n\
+    sudo chown -R vscode:vscode /workspace/backend \n\
+    sudo chown -R vscode:vscode /workspace/frontend \n\
+    # Clean potential problematic Next.js build directories \n\
+    if [ -d "/workspace/frontend/.next" ]; then \n\
+    echo "Removing existing .next directory for clean build..." \n\
+    sudo rm -rf /workspace/frontend/.next \n\
+    fi \n\
+    \n\
+    if [ -f "/workspace/backend/go.mod" ]; then \n\
+    echo "Installing backend dependencies..." \n\
+    cd /workspace/backend && go mod download \n\
+    fi \n\
+    \n\
+    if [ -f "/workspace/frontend/package.json" ]; then \n\
+    echo "Installing frontend dependencies..." \n\
+    cd /workspace/frontend && bun install \n\
+    fi \n\
+    ' > /home/vscode/init.sh && chmod +x /home/vscode/init.sh
 
 WORKDIR /workspace
