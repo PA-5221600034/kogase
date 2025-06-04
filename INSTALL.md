@@ -17,7 +17,7 @@ The easiest way to install Kogase is with our one-line installer. This script wi
 Open a terminal and run:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PA-5221600034/kogase/main/install-kogase.sh | bash
+curl -fsSL https://raw.githubusercontent.com/PA-5221600034/kogase/master/install.sh | bash
 ```
 
 ### For Windows (PowerShell)
@@ -25,7 +25,7 @@ curl -fsSL https://raw.githubusercontent.com/PA-5221600034/kogase/main/install-k
 Open PowerShell and run:
 
 ```powershell
-irm https://raw.githubusercontent.com/PA-5221600034/kogase/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/PA-5221600034/kogase/master/install.ps1 | iex
 ```
 
 ## Option 2: Manual Installation
@@ -66,25 +66,6 @@ After installation, you can access Kogase at:
 - **API Documentation**: http://localhost:8080/swagger/index.html
 
 ## Managing Your Installation
-
-### Using Make (Linux/macOS)
-
-```bash
-# Start all containers
-make up
-
-# Stop all containers
-make down
-
-# Show logs for all containers
-make logs
-
-# Check the health of your installation
-make health
-
-# See all available commands
-make help
-```
 
 ### Using Docker Compose (All platforms)
 

@@ -95,35 +95,6 @@ To view service logs:
 docker-compose logs -f [service]
 ```
 
-### Using the Makefile
-
-The repository includes a Makefile to simplify common Docker operations:
-
-```bash
-# Start all containers
-make up
-
-# Stop all containers
-make down
-
-# Show logs for all containers
-make logs
-
-# Show logs for a specific service
-make backend-logs
-make frontend-logs
-make db-logs
-
-# Rebuild and restart all containers
-make rebuild
-
-# Run health check
-make health
-
-# See all available commands
-make help
-```
-
 ### Health Checks
 
 You can run a health check on the Docker containers using the following commands:
