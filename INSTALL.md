@@ -103,4 +103,47 @@ If you encounter any issues during installation:
 3. Review the logs with `docker-compose logs -f`
 4. Run the health check to identify specific service issues
 
+## Uninstalling Kogase
+
+If you need to remove Kogase from your system, we provide uninstall scripts that can clean up Docker containers, images, volumes, and optionally the project directory.
+
+### For Linux/macOS
+
+```bash
+./uninstall.sh
+```
+
+### For Windows
+
+```powershell
+.\uninstall.ps1
+```
+
+Both scripts provide several options:
+
+- **Interactive Menu**: Run without parameters to see all available options
+- **--containers-only** or **-ContainersOnly**: Stop and remove containers only
+- **--with-images** or **-WithImages**: Remove containers and images
+- **--with-volumes** or **-WithVolumes**: Remove containers, images, and volumes
+- **--with-networks** or **-WithNetworks**: Remove containers, images, volumes, and networks
+- **--complete** or **-Complete**: Complete cleanup (all Docker resources and project files)
+- **--remove-all** or **-RemoveAll**: Remove everything including project directory
+- **--help** or **-Help**: Show help message
+
+### Examples
+
+```bash
+# Show interactive menu
+./uninstall.sh
+
+# Complete cleanup but keep project directory
+./uninstall.sh --complete
+
+# Remove everything including project directory
+./uninstall.sh --remove-all
+
+# Get help
+./uninstall.sh --help
+```
+
 For more details, refer to the main [README.md](README.md) file. 
