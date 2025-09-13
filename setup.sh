@@ -12,10 +12,10 @@ if [ ! -f .env ]; then
 fi
 
 echo "Building Docker images..."
-docker-compose build
+docker compose build
 
 echo "Starting Docker containers..."
-docker-compose up -d
+docker compose up -d
 
 echo "Waiting for services to initialize..."
 sleep 5
